@@ -1,0 +1,8 @@
+{
+  "name": "CrossPath English - Crucigramas para Aprender Inglés",
+  "description": "Aprende inglés jugando 1.200 crucigramas progresivos organizados por niveles del MCER (A1 a C2). Diseñado para hispanohablantes con mapa de progreso, audio, pronunciación y vocabulario.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
