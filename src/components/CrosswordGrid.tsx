@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import { CrosswordCell, Direction, PlacedWord, PuzzleData } from '../types';
+import React, { useRef, useEffect, useState } from "react";
+import { CrosswordCell, Direction, PlacedWord, PuzzleData } from "../types";
 
 interface CrosswordGridProps {
   puzzle: PuzzleData;
@@ -7,11 +7,13 @@ interface CrosswordGridProps {
   activeCell: { row: number; col: number } | null;
   activeDirection: Direction;
   activeWord: PlacedWord | null;
-  checkedCells: Record<string, 'correct' | 'wrong'>;
+  checkedCells: Record<string, "correct" | "wrong">;
   onCellClick: (row: number, col: number) => void;
   onLetterInput: (char: string) => void;
   onBackspace: () => void;
-  onNavigate: (dir: 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight') => void;
+  onNavigate: (
+    dir: "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight",
+  ) => void;
   onToggleDirection: () => void;
 }
 
@@ -29,6 +31,16 @@ export const CrosswordGrid: React.FC<CrosswordGridProps> = ({
   onToggleDirection,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [availableWidth, setAvailableWidth] = useState(640);
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(([entry]) =>
+      setAvailableWidth(entry.contentRect.width),
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
   const hiddenInputRef = useRef<HTMLInputElement>(null);
 
   // Focus hidden input on click so mobile virtual keyboard or hardware keyboard works seamlessly
@@ -41,19 +53,19 @@ export const CrosswordGrid: React.FC<CrosswordGridProps> = ({
   }, [activeCell]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Backspace') {
+    if (e.key === "Backspace") {
       e.preventDefault();
       onBackspace();
       return;
     }
-    if (e.key === ' ' || e.key === 'Enter') {
+    if (e.key === " " || e.key === "Enter") {
       e.preventDefault();
       onToggleDirection();
       return;
     }
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
       e.preventDefault();
-      onNavigate(e.key as 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight');
+      onNavigate(e.key as "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight");
       return;
     }
     if (/^[a-zA-Z]$/.test(e.key)) {
@@ -67,29 +79,40 @@ export const CrosswordGrid: React.FC<CrosswordGridProps> = ({
     if (/^[a-zA-Z]$/.test(val)) {
       onLetterInput(val.toUpperCase());
     }
-    e.target.value = '';
+    e.target.value = "";
   };
 
   // Determine if a cell is part of the currently active word
   const isCellInActiveWord = (r: number, c: number) => {
     if (!activeWord) return false;
-    if (activeWord.direction === 'across') {
-      return r === activeWord.row && c >= activeWord.col && c < activeWord.col + activeWord.word.length;
+    if (activeWord.direction === "across") {
+      return (
+        r === activeWord.row &&
+        c >= activeWord.col &&
+        c < activeWord.col + activeWord.word.length
+      );
     } else {
-      return c === activeWord.col && r >= activeWord.row && r < activeWord.row + activeWord.word.length;
+      return (
+        c === activeWord.col &&
+        r >= activeWord.row &&
+        r < activeWord.row + activeWord.word.length
+      );
     }
   };
 
   const cellSize = Math.min(
-    48,
-    Math.max(34, Math.floor(520 / Math.max(puzzle.width, puzzle.height, 6)))
+    64,
+    Math.max(
+      28,
+      Math.floor((availableWidth - 30 - (puzzle.width - 1) * 4) / puzzle.width),
+    ),
   );
 
   return (
     <div
       ref={containerRef}
       onClick={focusInput}
-      className="aql-crossword-grid relative flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl overflow-x-auto select-none"
+      className="ui-board aql-crossword-grid relative flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl ui-surface border ui-border shadow-xl overflow-x-auto select-none"
     >
       {/* Hidden input for mobile keyboard and native typing */}
       <input
@@ -105,7 +128,7 @@ export const CrosswordGrid: React.FC<CrosswordGridProps> = ({
       />
 
       <div
-        className="inline-grid gap-1 bg-slate-950/80 p-2 rounded-xl border border-slate-800/80 shadow-inner"
+        className="inline-grid gap-1 ui-page p-2 rounded-xl border ui-border shadow-inner"
         style={{
           gridTemplateColumns: `repeat(${puzzle.width}, ${cellSize}px)`,
           gridTemplateRows: `repeat(${puzzle.height}, ${cellSize}px)`,
@@ -118,7 +141,7 @@ export const CrosswordGrid: React.FC<CrosswordGridProps> = ({
               return (
                 <div
                   key={key}
-                  className="w-full h-full rounded-md bg-slate-950/40 opacity-30"
+                  className="w-full h-full rounded-md ui-page opacity-30"
                   style={{ width: cellSize, height: cellSize }}
                 />
               );
@@ -126,30 +149,32 @@ export const CrosswordGrid: React.FC<CrosswordGridProps> = ({
 
             const isSelected = activeCell?.row === r && activeCell?.col === c;
             const inWord = isCellInActiveWord(r, c);
-            const userLetter = userGrid[key] || '';
+            const userLetter = userGrid[key] || "";
             const checkState = checkedCells[key];
 
-            let cellBg = 'bg-slate-800/90 text-slate-100 hover:bg-slate-700/80';
-            let borderStyle = 'border border-slate-700/60';
+            let cellBg = "ui-soft ui-text ui-hover";
+            let borderStyle = "border ui-border";
 
-            if (checkState === 'wrong') {
-              cellBg = 'bg-rose-950/80 text-rose-300 animate-pulse';
-              borderStyle = 'border border-rose-500 shadow-sm';
-            } else if (checkState === 'correct') {
-              cellBg = 'bg-emerald-950/80 text-emerald-300';
-              borderStyle = 'border border-emerald-500 shadow-sm';
+            if (checkState === "wrong") {
+              cellBg = "bg-rose-950/80 text-rose-300 animate-pulse";
+              borderStyle = "border border-rose-500 shadow-sm";
+            } else if (checkState === "correct") {
+              cellBg = "bg-emerald-950/80 text-emerald-300";
+              borderStyle = "border border-emerald-500 shadow-sm";
             } else if (isSelected) {
-              cellBg = 'bg-emerald-500 text-slate-950 font-black shadow-lg ring-2 ring-emerald-400 ring-offset-1 ring-offset-slate-900';
-              borderStyle = 'border-transparent scale-105 z-10 transition-transform';
+              cellBg =
+                "bg-emerald-500 ui-contrast font-black shadow-lg ring-2 ring-emerald-400 ring-offset-1 ring-offset-slate-900";
+              borderStyle = "border-transparent z-10";
             } else if (inWord) {
-              cellBg = 'bg-emerald-950/50 text-emerald-100';
-              borderStyle = 'border border-emerald-500/50';
+              cellBg = "bg-emerald-950/50 ui-text";
+              borderStyle = "border border-emerald-500/50";
             }
 
             return (
               <button
                 key={key}
                 type="button"
+                aria-label={`Fila ${r + 1}, columna ${c + 1}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   onCellClick(r, c);
@@ -160,7 +185,9 @@ export const CrosswordGrid: React.FC<CrosswordGridProps> = ({
               >
                 {/* Crossword Clue Number in corner */}
                 {cell.number && (
-                  <span className={`absolute top-0.5 left-1 text-[9px] font-mono leading-none ${isSelected ? 'text-slate-950 font-bold' : 'text-slate-400'}`}>
+                  <span
+                    className={`absolute top-0.5 left-1 text-[9px] font-mono leading-none ${isSelected ? "ui-contrast font-bold" : "ui-muted"}`}
+                  >
                     {cell.number}
                   </span>
                 )}
@@ -168,7 +195,7 @@ export const CrosswordGrid: React.FC<CrosswordGridProps> = ({
                 {/* Letter */}
                 <span
                   className={`text-base sm:text-lg transition-transform font-sans ${
-                    userLetter ? 'scale-100' : 'scale-75 opacity-0'
+                    userLetter ? "scale-100" : "scale-75 opacity-0"
                   }`}
                 >
                   {userLetter}
@@ -177,17 +204,17 @@ export const CrosswordGrid: React.FC<CrosswordGridProps> = ({
                 {/* Direction indicator arrow in active cell */}
                 {isSelected && (
                   <span className="absolute bottom-0.5 right-1 text-[8px] text-slate-900/80 font-black uppercase">
-                    {activeDirection === 'across' ? '▶' : '▼'}
+                    {activeDirection === "across" ? "▶" : "▼"}
                   </span>
                 )}
               </button>
             );
-          })
+          }),
         )}
       </div>
 
       {/* Touch keyboard hint */}
-      <div className="mt-2.5 text-[11px] text-slate-400 flex items-center gap-3">
+      <div className="mt-2.5 text-[11px] ui-muted flex items-center gap-3">
         <span>Toca para seleccionar</span>
         <span>·</span>
         <span>Espacio o clic para cambiar dirección (▶/▼)</span>

@@ -625,3 +625,792 @@ select:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* Every game view uses explicit semantic surfaces, not a partial utility override. */
+.ui-page {
+  background: var(--aql-bg);
+}
+.ui-surface {
+  background: var(--aql-surface);
+}
+.ui-soft {
+  background: var(--aql-soft);
+}
+.ui-border {
+  border-color: var(--aql-border);
+}
+.ui-text {
+  color: var(--aql-ink);
+}
+.ui-muted {
+  color: var(--aql-muted);
+}
+.ui-contrast {
+  color: var(--aql-ink);
+}
+.ui-white {
+  background: #fff;
+}
+.ui-hover:hover {
+  background: var(--aql-soft);
+}
+.ui-hover-text:hover {
+  color: var(--aql-accent);
+}
+.ui-modal-backdrop {
+  background: #14102e88 !important;
+  padding: 24px;
+  overflow-y: auto;
+}
+.ui-modal {
+  background: var(--aql-surface);
+  color: var(--aql-ink);
+  border: 1px solid var(--aql-border);
+  border-radius: 26px;
+  box-shadow: 0 28px 100px #1d113c40;
+  max-height: 90dvh;
+  overflow-y: auto;
+}
+.ui-modal h2 {
+  font-size: 26px;
+  letter-spacing: -0.8px;
+  line-height: 1.2;
+}
+.ui-modal h3 {
+  font-size: 19px;
+  line-height: 1.5;
+}
+.ui-modal p {
+  font-size: 14px;
+  line-height: 1.65;
+}
+.ui-modal button {
+  min-height: 42px;
+}
+.ui-modal .ui-soft {
+  border-color: var(--aql-border);
+}
+.ui-modal .ui-muted {
+  font-size: 12px;
+}
+.ui-placement {
+  max-width: 650px;
+  min-height: 560px;
+  padding: 36px;
+}
+.ui-placement h3 {
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+}
+.ui-placement .space-y-2\.5 {
+  display: grid;
+  gap: 12px;
+}
+.ui-placement .space-y-2\.5 button {
+  height: 68px;
+  margin: 0;
+  padding: 18px 20px;
+  border-radius: 15px;
+  font-size: 14px;
+  background: var(--aql-surface);
+  border: 1px solid var(--aql-border);
+}
+.ui-placement .space-y-2\.5 button:hover {
+  background: var(--aql-soft);
+  border-color: var(--aql-accent);
+  transform: none;
+}
+.ui-placement .space-y-2\.5 button > span:first-child {
+  background: var(--aql-soft);
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  color: var(--aql-accent);
+}
+.ui-settings {
+  max-width: 600px;
+  padding: 32px;
+}
+.ui-settings .grid-cols-2 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+.ui-settings .space-y-4 > div {
+  padding: 18px;
+  min-height: 78px;
+}
+.ui-review {
+  max-width: 880px;
+}
+.ui-review .grid-cols-1 > div {
+  height: 185px;
+  padding: 20px;
+}
+.ui-review .grid-cols-1 > div p {
+  font-size: 13px;
+}
+.ui-review .grid-cols-1 > div span.text-sm {
+  font-size: 21px;
+}
+.ui-route-page {
+  padding: 36px clamp(20px, 3vw, 48px);
+  max-width: 1540px;
+  margin: auto;
+  background: var(--aql-bg);
+}
+.ui-view-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.ui-eyebrow {
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 1.6px;
+  color: var(--aql-accent);
+}
+.ui-view-heading h1 {
+  font-size: clamp(28px, 3vw, 39px);
+  line-height: 1.17;
+  letter-spacing: -1.3px;
+  font-weight: 800;
+  margin: 10px 0;
+}
+.ui-view-heading h1 span {
+  color: var(--aql-accent);
+}
+.ui-view-heading p,
+.ui-section-heading p {
+  color: var(--aql-muted);
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 8px 0;
+}
+.ui-secondary,
+.ui-primary {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--aql-border);
+  background: var(--aql-surface);
+  color: var(--aql-ink);
+  border-radius: 13px;
+  font-size: 13px;
+  font-weight: 650;
+  padding: 12px 17px;
+  white-space: nowrap;
+}
+.ui-primary {
+  background: linear-gradient(120deg, #8849ff, #6533ed);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 15px #6b35ee20;
+}
+.ui-secondary:disabled {
+  opacity: 0.4;
+}
+.ui-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 23px;
+}
+.ui-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 115px;
+  background: var(--aql-surface);
+  border: 1px solid var(--aql-border);
+  border-radius: 20px;
+  padding: 20px;
+}
+.ui-stat-card small {
+  display: block;
+  color: var(--aql-muted);
+  font-size: 11px;
+}
+.ui-stat-card strong {
+  font-size: 25px;
+  font-weight: 800;
+  display: block;
+  letter-spacing: -0.5px;
+  margin-top: 6px;
+}
+.ui-stat-card em {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--aql-muted);
+}
+.ui-stat-icon {
+  width: 45px;
+  height: 48px;
+  border-radius: 14px;
+  background: #f0e9ff;
+  color: #8242de;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.ui-stat-icon.cyan {
+  background: #e6f8fc;
+  color: #2697aa;
+}
+.ui-stat-icon.gold {
+  background: #fff4d8;
+  color: #c59320;
+}
+.ui-route-hero {
+  background: linear-gradient(115deg, var(--aql-surface), var(--aql-soft));
+  border: 1px solid var(--aql-border);
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 30px 35px;
+  margin-bottom: 27px;
+  min-height: 218px;
+}
+.ui-route-hero h2 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.9px;
+  margin: 8px 0;
+}
+.ui-route-hero p {
+  font-size: 13px;
+  color: var(--aql-muted);
+  margin-bottom: 20px;
+}
+.ui-route-art {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 210px;
+  transform: rotate(-9deg);
+}
+.ui-route-art > span {
+  width: 55px;
+  height: 67px;
+  display: grid;
+  place-items: center;
+  background: var(--aql-surface);
+  border: 2px solid #c9b4f4;
+  border-radius: 13px;
+  color: #9864db;
+  font-size: 28px;
+  font-weight: 800;
+  box-shadow: 4px 6px 0 #7c47db20;
+}
+.ui-route-art > span:nth-child(2) {
+  background: #8250df;
+  color: white;
+  transform: translateY(-20px);
+}
+.ui-route-art b {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #dca829;
+  font-size: 35px;
+}
+.ui-levels {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-bottom: 23px;
+}
+.ui-levels button {
+  min-height: 76px;
+  text-align: left;
+  border-radius: 16px;
+  border: 1px solid var(--aql-border);
+  background: var(--aql-surface);
+  padding: 13px 17px;
+}
+.ui-levels strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 800;
+}
+.ui-levels small {
+  font-size: 10px;
+  color: var(--aql-muted);
+}
+.ui-levels button.is-selected {
+  background: #713ce9;
+  color: white;
+  border-color: #713ce9;
+  box-shadow: 0 6px 14px #6a34d92b;
+}
+.ui-levels button.is-selected small {
+  color: #e6d9ff;
+}
+.ui-level-panel {
+  background: var(--aql-surface);
+  border-radius: 23px;
+  border: 1px solid var(--aql-border);
+  padding: 25px;
+}
+.ui-section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+.ui-section-heading h2 {
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-top: 8px;
+}
+.ui-level-count {
+  font-size: 11px;
+  white-space: nowrap;
+  background: var(--aql-soft);
+  padding: 9px 12px;
+  border-radius: 10px;
+  color: var(--aql-muted);
+}
+.ui-level-panel progress {
+  display: block;
+  width: 100%;
+  height: 5px;
+  accent-color: var(--aql-accent);
+  margin: 16px 0 23px;
+}
+.ui-puzzle-cards {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 13px;
+}
+.ui-puzzle-card {
+  height: 132px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--aql-border);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: left;
+  background: var(--aql-bg);
+  color: var(--aql-muted);
+}
+.ui-puzzle-card strong {
+  font-size: 11px;
+  width: 100%;
+  font-weight: 500;
+}
+.ui-puzzle-number {
+  font-size: 25px;
+  letter-spacing: -1px;
+  font-weight: 750;
+  color: var(--aql-muted);
+}
+.ui-puzzle-card:disabled {
+  opacity: 0.6;
+}
+.ui-puzzle-card.is-current {
+  border: 2px solid #9b74ed;
+  background: var(--aql-soft);
+  box-shadow: 0 5px 15px #6e40d415;
+}
+.ui-puzzle-card.is-current strong,
+.ui-puzzle-card.is-current .ui-puzzle-number,
+.ui-puzzle-card.is-current > svg {
+  color: var(--aql-accent);
+}
+.ui-puzzle-card.is-complete {
+  border-color: #77c7ad;
+  background: #e9faf2;
+  color: #23856a;
+}
+.ui-puzzle-card.is-complete .ui-puzzle-number {
+  color: #23856a;
+}
+.ui-stars {
+  display: flex;
+  gap: 3px;
+  color: #b8adc9;
+}
+.ui-puzzle-card.is-complete .ui-stars {
+  color: #c19320;
+}
+.ui-page-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 23px;
+}
+.ui-page-controls > span {
+  font-size: 11px;
+  color: var(--aql-muted);
+}
+.ui-puzzle {
+  background: var(--aql-bg);
+}
+.ui-puzzle > div:first-child {
+  position: static;
+  background: var(--aql-surface);
+  padding: 24px;
+  border: 0;
+  border-bottom: 1px solid var(--aql-border);
+}
+.ui-puzzle-title {
+  font-size: 23px;
+  letter-spacing: -0.6px;
+}
+.ui-puzzle > div:nth-child(2) {
+  max-width: 1600px;
+}
+.ui-puzzle .from-slate-900 {
+  background: var(--aql-surface);
+  border-color: var(--aql-border);
+  min-height: 96px;
+  padding: 22px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px #23113c04;
+}
+.ui-puzzle .from-slate-900 p {
+  font-size: 15px;
+  line-height: 1.5;
+}
+.ui-game-feedback {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--aql-border);
+  border-radius: 13px;
+  background: var(--aql-soft);
+  padding: 14px 18px;
+  font-size: 12px;
+  color: var(--aql-muted);
+  overflow: auto;
+}
+.ui-game-feedback svg {
+  flex: none;
+  color: var(--aql-accent);
+}
+.ui-board {
+  background: var(--aql-surface);
+  border: 1px solid var(--aql-border);
+  border-radius: 23px;
+  box-shadow: 0 10px 25px #26114606;
+  min-height: 430px;
+  padding: 26px;
+}
+.ui-board > .inline-grid {
+  background: var(--aql-bg);
+  border-color: var(--aql-border);
+  padding: 12px;
+  border-radius: 17px;
+}
+.ui-board [role="button"],
+.ui-board .cursor-pointer {
+  border-radius: 9px;
+}
+.ui-keyboard {
+  background: var(--aql-surface);
+  border-color: var(--aql-border);
+}
+.ui-keyboard button {
+  background: var(--aql-soft);
+  color: var(--aql-ink);
+}
+.ui-clue-list {
+  background: var(--aql-surface);
+  border-color: var(--aql-border);
+  border-radius: 22px;
+  box-shadow: 0 6px 20px #3a155305;
+  overflow: hidden;
+}
+.ui-clue-list > div:first-child {
+  padding: 18px;
+  background: var(--aql-surface);
+}
+.ui-clue-list > div:nth-child(2) {
+  padding: 16px;
+  max-height: 570px;
+}
+.ui-clue-list > div:nth-child(2) > div[role="button"] {
+  min-height: 130px;
+  padding: 17px;
+  border-radius: 15px;
+}
+.ui-clue-list p {
+  font-size: 14px;
+  line-height: 1.65;
+}
+.ui-clue-list > div:last-child {
+  padding: 14px;
+}
+.ui-vocabulary {
+  padding: 35px;
+  min-height: 100dvh;
+  background: var(--aql-bg);
+}
+.ui-vocabulary > div:first-child {
+  max-width: 1440px;
+}
+.ui-vocabulary h1 {
+  font-size: 31px;
+  letter-spacing: -1px;
+}
+.ui-dictionary > div:first-child {
+  background: var(--aql-surface);
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid var(--aql-border);
+}
+.ui-vocabulary input {
+  background: var(--aql-bg);
+  height: 48px;
+  font-size: 13px;
+}
+.ui-word-card {
+  height: 240px;
+  border: 1px solid var(--aql-border);
+  border-radius: 20px;
+  background: var(--aql-surface);
+  padding: 22px;
+  box-shadow: 0 6px 18px #27114804;
+  overflow-y: auto;
+}
+.ui-word-card h3 {
+  font-size: 24px;
+  letter-spacing: -0.5px;
+}
+.ui-word-card p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+.ui-word-card > div > div > div > span {
+  display: block;
+  margin-top: 7px;
+}
+.ui-flashcard {
+  height: 380px;
+  border: 1px solid var(--aql-border);
+  background: linear-gradient(120deg, var(--aql-surface), var(--aql-soft));
+  box-shadow: 0 16px 35px #5a2d8e0e;
+}
+.ui-flashcard h2 {
+  font-size: 42px;
+}
+.ui-vocabulary .grid-cols-1 {
+  align-items: stretch;
+}
+.light [class*="bg-emerald-950"],
+.light [class*="bg-cyan-950"],
+.light [class*="bg-teal-950"] {
+  background: #f0eaff;
+}
+.light [class*="bg-amber-950"] {
+  background: #fff5dd;
+}
+.light [class*="bg-rose-950"] {
+  background: #fff0f4;
+}
+.light [class~="text-teal-300"],
+.light [class~="text-cyan-300"],
+.light [class~="text-emerald-300"] {
+  color: #6d36cc;
+}
+.light [class~="text-rose-300"],
+.light [class~="text-rose-400"] {
+  color: #b83058;
+}
+.ui-puzzle [class~="bg-emerald-400"],
+.ui-puzzle [class~="bg-emerald-500"],
+.ui-modal [class~="from-emerald-500"] {
+  color: #fff;
+}
+.ui-puzzle [class~="bg-emerald-400"] .ui-contrast,
+.ui-modal [class~="from-emerald-500"] .ui-contrast {
+  color: inherit;
+}
+@media (max-width: 1150px) {
+  .ui-puzzle-cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .ui-stat-card {
+    gap: 10px;
+    padding: 16px;
+  }
+  .ui-stat-card em {
+    display: block;
+  }
+  .ui-view-heading {
+    align-items: flex-start;
+  }
+  .ui-view-heading .ui-secondary {
+    font-size: 11px;
+  }
+  .ui-route-art {
+    min-width: 180px;
+  }
+  .ui-levels {
+    gap: 8px;
+  }
+  .ui-levels button {
+    padding: 13px 10px;
+  }
+}
+@media (max-width: 700px) {
+  .ui-route-page,
+  .ui-vocabulary {
+    padding: 24px 16px;
+  }
+  .ui-view-heading {
+    display: block;
+  }
+  .ui-view-heading .ui-secondary {
+    margin-top: 12px;
+  }
+  .ui-stat-grid {
+    gap: 10px;
+    grid-template-columns: 1fr;
+  }
+  .ui-stat-card {
+    min-height: 88px;
+  }
+  .ui-stat-card em {
+    display: inline;
+  }
+  .ui-route-hero {
+    padding: 23px;
+    min-height: 210px;
+  }
+  .ui-route-hero h2 {
+    font-size: 25px;
+  }
+  .ui-route-art {
+    display: none;
+  }
+  .ui-levels {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .ui-level-panel {
+    padding: 16px;
+  }
+  .ui-section-heading {
+    display: block;
+  }
+  .ui-level-count {
+    display: inline-block;
+    margin-top: 10px;
+  }
+  .ui-puzzle-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .ui-puzzle-card {
+    height: 132px;
+  }
+  .ui-page-controls {
+    gap: 7px;
+  }
+  .ui-page-controls .ui-secondary {
+    padding: 10px;
+    font-size: 11px;
+  }
+  .ui-page-controls > span {
+    font-size: 9px;
+    text-align: center;
+  }
+  .ui-puzzle > div:first-child {
+    padding: 16px 12px;
+  }
+  .ui-puzzle-title {
+    font-size: 17px;
+  }
+  .ui-board {
+    min-height: 300px;
+    padding: 12px;
+    align-items: flex-start;
+  }
+  .ui-modal-backdrop {
+    padding: 14px;
+  }
+  .ui-modal {
+    padding: 24px;
+    max-height: 92dvh;
+  }
+  .ui-modal h2 {
+    font-size: 23px;
+  }
+  .ui-settings .grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ui-placement {
+    min-height: 600px;
+  }
+  .ui-placement h3 {
+    min-height: 105px;
+  }
+  .ui-placement .space-y-2\.5 button {
+    height: 76px;
+    font-size: 13px;
+  }
+  .ui-word-card {
+    height: 240px;
+  }
+  .ui-game-feedback {
+    height: 70px;
+  }
+  .ui-vocabulary h1 {
+    font-size: 26px;
+  }
+}
+.ui-clue-card {
+  height: 164px;
+  overflow-y: auto;
+  padding: 18px !important;
+  border-radius: 15px !important;
+}
+.ui-board {
+  overflow-x: auto;
+}
+.ui-board .inline-grid {
+  flex: none;
+  max-width: none;
+}
+.ui-board .bg-emerald-500 .ui-contrast {
+  color: white;
+}
+.ui-board .bg-emerald-500 {
+  color: white;
+}
+.ui-settings .ui-white {
+  background: white;
+}
+.ui-route-page progress::-webkit-progress-bar,
+.aql-sidebar-progress progress::-webkit-progress-bar {
+  background: var(--aql-soft);
+  border-radius: 10px;
+}
+.ui-route-page progress::-webkit-progress-value,
+.aql-sidebar-progress progress::-webkit-progress-value {
+  background: #8a53eb;
+  border-radius: 10px;
+}
+.ui-route-page progress,
+.aql-sidebar-progress progress {
+  appearance: none;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+}
