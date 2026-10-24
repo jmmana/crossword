@@ -125,7 +125,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({
   const solvedCount = Object.keys(progress.solvedPuzzles).length;
 
   return (
-    <div className="relative w-full h-[calc(100vh-64px)] flex flex-col bg-slate-950 text-slate-100 overflow-hidden">
+    <div className="aql-map relative w-full h-[calc(100vh-64px)] flex flex-col bg-slate-950 text-slate-100 overflow-hidden">
       
       {/* Level Selector Pills Strip */}
       <div className="z-20 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-2">
@@ -275,7 +275,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({
                           ¡Tu Turno!
                         </div>
                         <img
-                          src="/src/assets/images/mascot_lexi_owl_1792847023254.jpg"
+                          src="/assets/aistudio/image_851d0af6.png"
                           alt="Lexi Mascota"
                           referrerPolicy="no-referrer"
                           className="w-11 h-11 rounded-full border-2 border-emerald-400 shadow-xl object-cover bg-slate-800"
@@ -287,6 +287,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({
                     <button
                       type="button"
                       disabled={!isUnlocked}
+                      aria-label={`Crucigrama ${id}${isSolved ? ", completado" : isCurrent ? ", continuar" : ""}`}
                       onClick={() => {
                         SoundEngine.playType(progress.soundEnabled);
                         onSelectPuzzle(id);

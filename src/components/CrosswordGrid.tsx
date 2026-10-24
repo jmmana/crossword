@@ -89,7 +89,7 @@ export const CrosswordGrid: React.FC<CrosswordGridProps> = ({
     <div
       ref={containerRef}
       onClick={focusInput}
-      className="relative flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl overflow-x-auto select-none"
+      className="aql-crossword-grid relative flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl overflow-x-auto select-none"
     >
       {/* Hidden input for mobile keyboard and native typing */}
       <input

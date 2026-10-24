@@ -72,7 +72,7 @@ export const VocabularyScreen: React.FC<VocabularyScreenProps> = ({
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] bg-slate-950 text-slate-100 p-4 sm:p-6 flex flex-col">
+    <div className="aql-vocabulary min-h-[calc(100vh-64px)] bg-slate-950 text-slate-100 p-4 sm:p-6 flex flex-col">
       <div className="max-w-5xl mx-auto w-full flex-1 flex flex-col gap-6">
         
         {/* Top Header */}

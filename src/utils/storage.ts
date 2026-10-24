@@ -30,7 +30,7 @@ export const DEFAULT_PROGRESS: UserProgress = {
   streak: 1,
   lastPlayedDate: getTodayString(),
   learnedWords: [],
-  theme: 'dark',
+  theme: 'light',
   soundEnabled: true,
   inProgressGrids: {},
 };
@@ -52,7 +52,7 @@ export function loadUserProgress(): UserProgress {
       streak,
       lastPlayedDate: today,
       learnedWords: parsed.learnedWords || [],
-      theme: parsed.theme === 'light' ? 'light' : 'dark',
+      theme: parsed.theme === 'dark' ? 'dark' : 'light',
       soundEnabled: parsed.soundEnabled !== false,
       inProgressGrids: parsed.inProgressGrids || {},
     };
