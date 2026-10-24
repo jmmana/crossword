@@ -405,10 +405,10 @@ export const PuzzleScreen: React.FC<PuzzleScreenProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="aql-puzzle min-h-screen bg-slate-950 text-slate-100 flex flex-col">
       {/* Puzzle Top Toolbar */}
-      <div className="sticky top-16 z-30 bg-slate-900/90 backdrop-blur border-b border-slate-800 px-4 py-2.5">
-        <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
+      <div className="sticky top-0 z-30 bg-slate-900/90 backdrop-blur border-b border-slate-800 px-4 py-2.5">
+        <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
           
           <button
             onClick={onBackToMap}
@@ -456,7 +456,7 @@ export const PuzzleScreen: React.FC<PuzzleScreenProps> = ({
       </div>
 
       {/* Main Puzzle Area */}
-      <div className="flex-1 max-w-6xl mx-auto w-full p-4 flex flex-col gap-4">
+      <div className="flex-1 max-w-[1440px] mx-auto w-full p-4 flex flex-col gap-4">
         
         {/* Prominent Active Clue Bar */}
         {activeWord && (
@@ -546,7 +546,7 @@ export const PuzzleScreen: React.FC<PuzzleScreenProps> = ({
 
         {/* Grid and Clues layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-          <div className="lg:col-span-7 flex flex-col items-center">
+          <div className="lg:col-span-8 flex flex-col items-center">
             <CrosswordGrid
               puzzle={puzzle}
               userGrid={userGrid}
@@ -571,7 +571,7 @@ export const PuzzleScreen: React.FC<PuzzleScreenProps> = ({
             </div>
           </div>
 
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-4">
             <ClueList
               words={puzzle.words}
               activeWord={activeWord}

@@ -166,7 +166,7 @@ export default function App() {
   // If showing intro screen on very first visit
   if (showIntro) {
     return (
-      <div className="w-full min-h-screen bg-slate-950">
+      <div className="aql-intro-shell w-full min-h-screen bg-slate-950">
         <IntroScreen
           onStartGame={() => {
             setShowIntro(false);
@@ -189,7 +189,7 @@ export default function App() {
   }
 
   return (
-    <div className={`w-full min-h-screen flex flex-col ${progress.theme === 'light' ? 'bg-slate-100 text-slate-900' : 'bg-slate-950 text-slate-100'}`}>
+    <div className={`aql-app w-full min-h-screen flex flex-col ${progress.theme === 'light' ? 'bg-slate-100 text-slate-900' : 'bg-slate-950 text-slate-100'}`}>
       
       {/* Top Navigation Bar */}
       <Header
@@ -211,7 +211,7 @@ export default function App() {
       />
 
       {/* Main View Area */}
-      <main className="flex-1 w-full relative">
+      <main className="aql-main flex-1 w-full relative">
         {activeTab === 'map' && (
           <MapScreen
             progress={progress}
