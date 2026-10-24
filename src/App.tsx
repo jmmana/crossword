@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { CEFRLevel, PuzzleData, UserProgress } from './types';
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { CEFRLevel, PuzzleData, UserProgress } from "./types";
 import {
   loadUserProgress,
   saveUserProgress,
   completePuzzleRecord,
   applyPlacementLevel,
   DEFAULT_PROGRESS,
-} from './utils/storage';
-import { getOrGeneratePuzzle } from './utils/crosswordGenerator';
-import { Header } from './components/Header';
-import { MapScreen } from './components/MapScreen';
-import { PuzzleScreen } from './components/PuzzleScreen';
-import { WordReviewModal } from './components/WordReviewModal';
-import { VocabularyScreen } from './components/VocabularyScreen';
-import { PlacementTestModal } from './components/PlacementTestModal';
-import { SettingsModal } from './components/SettingsModal';
-import { IntroScreen } from './components/IntroScreen';
+} from "./utils/storage";
+import { getOrGeneratePuzzle } from "./utils/crosswordGenerator";
+import { Header } from "./components/Header";
+import { MapScreen } from "./components/MapScreen";
+import { PuzzleScreen } from "./components/PuzzleScreen";
+import { WordReviewModal } from "./components/WordReviewModal";
+import { VocabularyScreen } from "./components/VocabularyScreen";
+import { PlacementTestModal } from "./components/PlacementTestModal";
+import { SettingsModal } from "./components/SettingsModal";
+import { IntroScreen } from "./components/IntroScreen";
 
 export default function App() {
   const [progress, setProgress] = useState<UserProgress>(loadUserProgress);
@@ -25,7 +25,9 @@ export default function App() {
     return Object.keys(progress.solvedPuzzles).length === 0;
   });
 
-  const [activeTab, setActiveTab] = useState<'map' | 'puzzle' | 'vocab' | 'placement'>('map');
+  const [activeTab, setActiveTab] = useState<
+    "map" | "puzzle" | "vocab" | "placement"
+  >("map");
   const [selectedPuzzleId, setSelectedPuzzleId] = useState<number | null>(null);
   const [showSettings, setShowSettings] = useState(false);
   const [showPlacementModal, setShowPlacementModal] = useState(false);
@@ -41,12 +43,12 @@ export default function App() {
 
   // Sync theme with document class
   useEffect(() => {
-    if (progress.theme === 'light') {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
+    if (progress.theme === "light") {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
     } else {
-      document.documentElement.classList.remove('light');
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
     }
   }, [progress.theme]);
 
@@ -61,11 +63,11 @@ export default function App() {
   // Handlers
   const handleSelectPuzzle = (puzzleId: number) => {
     setSelectedPuzzleId(puzzleId);
-    setActiveTab('puzzle');
+    setActiveTab("puzzle");
   };
 
   const handleBackToMap = () => {
-    setActiveTab('map');
+    setActiveTab("map");
     setSelectedPuzzleId(null);
   };
 
@@ -73,7 +75,7 @@ export default function App() {
     stars: number,
     hintsUsed: number,
     timeSecs: number,
-    wordIds: string[]
+    wordIds: string[],
   ) => {
     if (!selectedPuzzleId || !currentPuzzleData) return;
 
@@ -83,7 +85,7 @@ export default function App() {
       stars,
       hintsUsed,
       timeSecs,
-      wordIds
+      wordIds,
     );
 
     setProgress(nextProgress);
@@ -102,9 +104,9 @@ export default function App() {
     const nextId = selectedPuzzleId + 1;
     if (nextId <= 1200) {
       setSelectedPuzzleId(nextId);
-      setActiveTab('puzzle');
+      setActiveTab("puzzle");
     } else {
-      setActiveTab('map');
+      setActiveTab("map");
       setSelectedPuzzleId(null);
     }
   };
@@ -115,19 +117,24 @@ export default function App() {
     saveUserProgress(updated);
   };
 
-  const handleSaveInProgress = (puzzleId: number, grid: Record<string, string>) => {
-    // Only save if puzzle is not already completed
-    if (progress.solvedPuzzles[puzzleId]) return;
-    const updated = {
-      ...progress,
-      inProgressGrids: {
-        ...progress.inProgressGrids,
-        [puzzleId]: grid,
-      },
-    };
-    setProgress(updated);
-    saveUserProgress(updated);
-  };
+  const handleSaveInProgress = useCallback(
+    (puzzleId: number, grid: Record<string, string>) => {
+      setProgress((current) => {
+        if (
+          current.solvedPuzzles[puzzleId] ||
+          current.inProgressGrids[puzzleId] === grid
+        )
+          return current;
+        const updated = {
+          ...current,
+          inProgressGrids: { ...current.inProgressGrids, [puzzleId]: grid },
+        };
+        saveUserProgress(updated);
+        return updated;
+      });
+    },
+    [],
+  );
 
   const handleToggleSound = () => {
     const updated: UserProgress = {
@@ -139,7 +146,8 @@ export default function App() {
   };
 
   const handleToggleTheme = () => {
-    const nextTheme: 'dark' | 'light' = progress.theme === 'dark' ? 'light' : 'dark';
+    const nextTheme: "dark" | "light" =
+      progress.theme === "dark" ? "light" : "dark";
     const updated: UserProgress = {
       ...progress,
       theme: nextTheme,
@@ -152,7 +160,7 @@ export default function App() {
     setProgress(DEFAULT_PROGRESS);
     saveUserProgress(DEFAULT_PROGRESS);
     setSelectedPuzzleId(null);
-    setActiveTab('map');
+    setActiveTab("map");
   };
 
   const handleApplyPlacementLevel = (level: CEFRLevel) => {
@@ -160,7 +168,7 @@ export default function App() {
     setProgress(next);
     setShowPlacementModal(false);
     setShowIntro(false);
-    setActiveTab('map');
+    setActiveTab("map");
   };
 
   // If showing intro screen on very first visit
@@ -170,7 +178,7 @@ export default function App() {
         <IntroScreen
           onStartGame={() => {
             setShowIntro(false);
-            setActiveTab('map');
+            setActiveTab("map");
           }}
           onOpenPlacementTest={() => {
             setShowPlacementModal(true);
@@ -189,18 +197,19 @@ export default function App() {
   }
 
   return (
-    <div className={`aql-app w-full min-h-screen flex flex-col ${progress.theme === 'light' ? 'bg-slate-100 text-slate-900' : 'bg-slate-950 text-slate-100'}`}>
-      
+    <div
+      className={`aql-app w-full min-h-screen flex flex-col ${progress.theme === "light" ? "bg-slate-100 text-slate-900" : "bg-slate-950 text-slate-100"}`}
+    >
       {/* Top Navigation Bar */}
       <Header
         progress={progress}
         activeTab={activeTab}
         onSelectTab={(tab) => {
-          if (tab === 'placement') {
+          if (tab === "placement") {
             setShowPlacementModal(true);
           } else {
             setActiveTab(tab);
-            if (tab !== 'puzzle') {
+            if (tab !== "puzzle") {
               setSelectedPuzzleId(null);
             }
           }
@@ -212,7 +221,7 @@ export default function App() {
 
       {/* Main View Area */}
       <main className="aql-main flex-1 w-full relative">
-        {activeTab === 'map' && (
+        {activeTab === "map" && (
           <MapScreen
             progress={progress}
             onSelectPuzzle={handleSelectPuzzle}
@@ -220,8 +229,9 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'puzzle' && currentPuzzleData && (
+        {activeTab === "puzzle" && currentPuzzleData && (
           <PuzzleScreen
+            key={currentPuzzleData.id}
             puzzle={currentPuzzleData}
             progress={progress}
             onBackToMap={handleBackToMap}
@@ -231,11 +241,8 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'vocab' && (
-          <VocabularyScreen
-            progress={progress}
-            onBackToMap={handleBackToMap}
-          />
+        {activeTab === "vocab" && (
+          <VocabularyScreen progress={progress} onBackToMap={handleBackToMap} />
         )}
       </main>
 
@@ -255,7 +262,7 @@ export default function App() {
           }}
           onGoToVocab={() => {
             setVictoryData(null);
-            setActiveTab('vocab');
+            setActiveTab("vocab");
           }}
         />
       )}
@@ -279,7 +286,6 @@ export default function App() {
           soundEnabled={progress.soundEnabled}
         />
       )}
-
     </div>
   );
 }

@@ -1,19 +1,38 @@
-# AqueLingua · Crossword: integración visual
+# AqueLingua · Rediseño completo de Crossword
 
-La interfaz utiliza superficies blancas, fondo lavanda, acentos violeta y navegación lateral. El selector sol/luna conserva el tema existente en `crosspath_progress_v1`. El modo claro se aplica a usuarios nuevos; la preferencia oscura guardada se respeta.
+## Pantallas y estados incluidos
 
-La bienvenida, el mapa, el crucigrama, el vocabulario y los modales comparten la paleta. Se mantienen el banco A1–C2, los 1.200 niveles, el generador, las monedas, el test de nivel y las partidas guardadas. No se sustituyen por datos de demostración.
+| Vista                | Tratamiento visual                                                                           |
+| -------------------- | -------------------------------------------------------------------------------------------- |
+| Bienvenida           | Composición de letras, tarjetas de beneficios, botones violeta                               |
+| Ruta A1–C2           | Cabecera, tres indicadores reales, panel Continuar, selector de niveles y retos paginados    |
+| Partida              | Panel de pista, espacio fijo de feedback, tablero principal, herramientas y pistas uniformes |
+| Vocabulario          | Búsqueda y filtros, tarjetas de 240 px, ejemplos y audio                                     |
+| Tarjetas de repaso   | Frente y reverso de altura constante, navegación y estado vacío                              |
+| Test de nivel        | Modal claro, opciones de tamaño fijo, progreso y resultado                                   |
+| Ajustes              | Indicadores y preferencias con las mismas superficies y tipografía                           |
+| Resultado de partida | Estrellas, monedas reales, palabras aprendidas y acciones de continuidad                     |
+| Móvil                | Navegación adaptable, tablero ajustado al ancho, teclado y pistas apiladas                   |
+| Oscuro               | Las mismas vistas mediante tokens de tema y selector persistente                             |
 
-El tablero recibe ocho columnas de las doce de la distribución de escritorio y las pistas cuatro. Las dimensiones de las celdas dependen del crucigrama, no de la selección o la corrección; los estados no alteran su tamaño. En móvil se apilan tablero y pistas. La navegación deja de ser fija en pantallas pequeñas.
+El modo claro sigue siendo predeterminado para nuevos usuarios. La preferencia existente se respeta. Las superficies de los componentes ya usan clases semánticas ui-*; no dependen únicamente de una sustitución parcial de colores oscuros.
 
-La bienvenida usa una composición de letras en CSS, sin dependencias de nuevas imágenes. La mascota existente del mapa se sirve desde public/assets para que su URL funcione también después de compilar. No se agregan binarios.
+## Distribución y estabilidad
 
-## Validación local
+Los 1.200 crucigramas se conservan. La ruta permite elegir nivel y recorrer 20 retos por página. Respeta los bloqueos y las estrellas existentes. No se cambia el banco de palabras ni el generador.
 
-- npm install: correcto tras alinear esbuild con la versión de Vite declarada.
-- npm run lint: TypeScript sin errores.
-- npm run build: producción compilada.
-- Prueba DOM con jsdom: bienvenida, entrada al mapa, tema claro inicial, cambio a oscuro persistente, regreso a claro, vocabulario, sonido y apertura del crucigrama del generador original.
-- Revisión visual en navegador real pendiente: la descarga del ejecutable Chromium falló en este entorno. Comprobar escritorio y móvil antes de publicar.
+Las tarjetas de retos, vocabulario, opciones del test y pistas tienen dimensiones uniformes en su vista. El espacio de feedback permanece montado antes y después de comprobar una letra. Las celdas dependen del ancho disponible y del tamaño del puzzle; seleccionar o comprobar no cambia sus dimensiones. Se eliminó la escala de la casilla seleccionada. El tablero se ajusta con ResizeObserver y permite desplazamiento interno para puzzles que excedan el mínimo legible.
 
-No se añadieron ni ejecutaron workflows de GitHub Actions. No se despliega ni se fusiona automáticamente este cambio.
+Se corrigieron dos problemas detectados al recorrer la partida: la función de guardado provocaba un bucle de render y cambiar a otro crucigrama no reiniciaba el estado local del componente. Se preservan las partidas, monedas y vocabulario existentes. El confeti se limpia al salir del resultado y respeta el movimiento reducido.
+
+## Validación
+
+- npm run lint: correcto.
+- npm run build: correcto.
+- npm run test:ui: tres pruebas Playwright superadas contra el build de producción.
+- Navegador Chromium real, escritorio 1440 × 1000 y móvil 390 × 844.
+- Flujo real: resolver puzzle generado, victoria, colección, giro de tarjetas, test y resultado, tema y móvil.
+- Comprobaciones de estabilidad del tablero, altura uniforme de tarjetas, tema persistente y ausencia de errores JS.
+- Revisión visual de capturas internas de ruta, partida, vocabulario, test, ajustes, resultados, repaso y móvil.
+
+No se agregan ni ejecutan workflows de GitHub Actions. La integración en main no implica desplegar un servicio externo.
